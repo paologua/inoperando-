@@ -40,7 +40,7 @@ padding: 28px 48px; border-bottom: 1px solid var(--line);
 .logo { display: flex; align-items: baseline; text-decoration: none; }
 .logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; color: var(--light); line-height: 1; }
 .logo-accent { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; color: var(--orange); line-height: 1; }
-.logo-dot { display: inline-block; width: 7px; height: 7px; background: var(--orange); border-radius: 50%; margin-left: 4px; margin-bottom: 4px; vertical-align: bottom; }
+.logo-dot { display: inline-block; width: 7px; height: 7px; background: var(--light); border-radius: 50%; margin-left: 4px; margin-bottom: 4px; vertical-align: bottom; }
 nav { display: flex; gap: 32px; align-items: center; }
 nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--light); }
@@ -53,14 +53,16 @@ display: flex; flex-direction: column; align-items: center; justify-content: cen
 padding: 60px 48px 80px; text-align: center;
 }
 .tag {
-display: inline-flex; align-items: center; gap: 8px;
-background: rgba(74,144,184,0.12); border: 1px solid rgba(74,144,184,0.3);
-color: var(--orange); font-size: 0.75rem; font-weight: 500;
-letter-spacing: 0.12em; text-transform: uppercase;
-padding: 6px 16px; border-radius: 2px; margin-bottom: 40px;
-opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+display: inline-block;
+color: var(--light);
+font-size: 0.75rem;
+font-weight: 500;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+margin-bottom: 40px;
+opacity: 0;
+animation: fadeUp 0.6s 0.2s forwards;
 }
-.tag::before { content: ''; display: inline-block; width: 6px; height: 6px; background: var(--orange); border-radius: 50%; }
 h1 {
 font-family: 'Bebas Neue', sans-serif;
 font-size: clamp(3.2rem, 7vw, 7rem);
@@ -181,11 +183,11 @@ footer { padding: 20px 24px; }
 
 <main class="hero">
 
-  <div class="tag">Selezioniamo personale e aziende in modo serio, rapido e responsabile</div>
+  <div class="tag">operai in tutta Italia</div>
 
   <h1>Selezioniamo<br>personale <em>e</em><br>aziende</h1>
 
-  <p class="sub">operai in tutta Italia.</p>
+  <p class="sub">metodo serio, veloce e responsabile</p>
 
   <div class="cta-grid">
 
