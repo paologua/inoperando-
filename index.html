@@ -9,7 +9,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --orange: #4A90B8;
+  --orange: #5AA9D9;
   --dark: #0F0F0D;
   --mid: #1A1A17;
   --surface: #1C1C18;
@@ -27,7 +27,7 @@ opacity: 0.03; pointer-events: none; z-index: 0;
 }
 body::after {
 content: ''; position: fixed; top: -20%; right: -10%; width: 55vw; height: 120vh;
-background: linear-gradient(160deg, rgba(74,144,184,0.07) 0%, transparent 60%);
+background: linear-gradient(160deg, rgba(90,169,217,0.07) 0%, transparent 60%);
 pointer-events: none; z-index: 0;
 }
 
@@ -97,13 +97,13 @@ transition: border-color 0.25s, transform 0.25s;
 }
 .cta-card::before {
 content: ''; position: absolute; inset: 0;
-background: linear-gradient(135deg, rgba(74,144,184,0.10) 0%, transparent 60%);
+background: linear-gradient(135deg, rgba(90,169,217,0.10) 0%, transparent 60%);
 opacity: 0; transition: opacity 0.3s;
 }
-.cta-card:hover { border-color: rgba(74,144,184,0.45); transform: translateY(-3px); }
+.cta-card:hover { border-color: rgba(90,169,217,0.45); transform: translateY(-3px); }
 .cta-card:hover::before { opacity: 1; }
 .cta-card:hover .card-arrow { transform: translate(3px, -3px); color: var(--orange); }
-.card-icon { width: 44px; height: 44px; background: rgba(74,144,184,0.13); border-radius: 3px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.card-icon { width: 44px; height: 44px; background: rgba(90,169,217,0.13); border-radius: 3px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
 .card-icon svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--light); line-height: 1; margin-bottom: 10px; }
 .card-desc { font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.55; flex: 1; }
