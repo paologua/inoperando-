@@ -43,22 +43,13 @@ border-bottom: 1px solid var(--line);
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
 }
 .logo-mark {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   object-fit: contain;
-}
-.logo-wordmark {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.7rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: var(--light);
 }
 nav { display: flex; gap: 32px; align-items: center; }
 nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
@@ -89,6 +80,7 @@ line-height: 0.95; letter-spacing: 0.02em; color: var(--light); max-width: 860px
 opacity: 0; animation: fadeUp 0.7s 0.35s forwards;
 }
 h1 em { font-style: normal; color: var(--orange); }
+h1 .blue { font-style: normal; color: var(--orange); }
 .sub {
 margin-top: 24px; font-size: 1rem; font-weight: 300; color: var(--muted);
 letter-spacing: 0.01em; max-width: 420px; line-height: 1.65;
@@ -184,8 +176,7 @@ nav { display: none; }
 .cta-grid { grid-template-columns: 1fr; }
 .how { padding: 64px 24px; }
 footer { padding: 20px 24px; }
-.logo-mark { width: 28px; height: 28px; }
-.logo-wordmark { font-size: 1.4rem; }
+.logo-mark { width: 36px; height: 36px; }
 }
 </style>
 </head>
@@ -194,7 +185,6 @@ footer { padding: 20px 24px; }
 <header>
   <a class="logo" href="index.html">
     <img src="logo.png" class="logo-mark" alt="logo">
-    <span class="logo-wordmark">inoperando</span>
   </a>
   <nav>
     <a href="#come-funziona">Come funziona</a>
@@ -206,7 +196,7 @@ footer { padding: 20px 24px; }
 
   <div class="tag">operai in tutta Italia</div>
 
-  <h1>Selezioniamo<br>personale <em>e</em><br>aziende</h1>
+  <h1>Selezioniamo<br>personale <em>e</em> <span class="blue">aziende</span></h1>
 
   <p class="sub">metodo serio, veloce e responsabile</p>
 
