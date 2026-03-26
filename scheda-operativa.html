@@ -7,10 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
-  --orange: #4A90B8;
-  --orange-dim: rgba(74,144,184,0.12);
-  --orange-border: rgba(74,144,184,0.3);
+  --orange: #5AA9D9;
+  --orange-dim: rgba(90,169,217,0.12);
+  --orange-border: rgba(90,169,217,0.3);
   --dark: #0F0F0D;
   --mid: #161613;
   --surface: #1C1C18;
@@ -18,143 +19,490 @@
   --light: #F0EBE1;
   --muted: #6B6760;
   --line: rgba(255,255,255,0.07);
+  --focus: rgba(90,169,217,0.35);
 }
-body { background: var(--dark); color: var(--light); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; display: flex; flex-direction: column; }
-body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 0; }
 
-header { position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; border-bottom: 1px solid var(--line); }
-.logo { display: flex; align-items: baseline; text-decoration: none; }
-.logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--light); letter-spacing: 0.04em; }
-.logo-accent { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--orange); letter-spacing: 0.04em; }
-.logo-dot { display: inline-block; width: 6px; height: 6px; background: var(--orange); border-radius: 50%; margin-left: 3px; margin-bottom: 3px; vertical-align: bottom; }
-.header-tag { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 5px 12px; border-radius: 2px; }
-
-/* ── LAYOUT ── */
-.workspace { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; flex: 1; min-height: calc(100vh - 65px); }
-
-/* ── LEFT: INPUT PANEL ── */
-.input-panel { border-right: 1px solid var(--line); padding: 32px; overflow-y: auto; max-height: calc(100vh - 65px); }
-.panel-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
-.panel-title::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-
-.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.field label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-input[type="text"], input[type="number"], input[type="email"], textarea, select {
-background: var(--surface2); border: 1px solid var(--line); color: var(--light);
-font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 300;
-padding: 10px 14px; border-radius: 3px; width: 100%; outline: none;
-transition: border-color 0.2s, background 0.2s; -webkit-appearance: none;
+body {
+  background: var(--dark);
+  color: var(--light);
+  font-family: 'DM Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-input:focus, textarea:focus, select:focus { border-color: rgba(74,144,184,0.35); background: #1e1e1a; }
-input::placeholder, textarea::placeholder { color: #42423e; }
-textarea { resize: vertical; min-height: 70px; line-height: 1.55; }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6760' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; cursor: pointer; }
-select option { background: #222220; }
 
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 0;
+}
 
-.checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.check-label { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--light); cursor: pointer; padding: 7px 10px; border-radius: 3px; border: 1px solid var(--line); background: var(--surface2); transition: border-color 0.2s; user-select: none; }
-.check-label:hover { border-color: var(--orange-border); }
-.check-label input { display: none; }
-.cb { width: 14px; height: 14px; min-width: 14px; border: 1px solid var(--muted); border-radius: 2px; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
-.check-label input:checked ~ .cb { background: var(--orange); border-color: var(--orange); }
-.cb::after { content: ''; width: 4px; height: 3px; border-left: 1.5px solid var(--dark); border-bottom: 1.5px solid var(--dark); transform: rotate(-45deg) translateY(-1px); display: none; }
-.check-label input:checked ~ .cb::after { display: block; }
+/* ── HEADER ── */
+header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+.logo-mark {
+  height: 100px;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.header-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+  border-radius: 30px;
+}
 
-.section-label { font-family: 'Bebas Neue', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--orange); text-transform: uppercase; margin: 24px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+/* ── WORKSPACE ── */
+.workspace {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
 
-.btn-generate { width: 100%; margin-top: 28px; display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--orange); color: var(--dark); font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.12em; padding: 14px; border: none; border-radius: 3px; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-.btn-generate:hover { background: #ff5c12; transform: translateY(-1px); }
-.btn-generate svg { width: 16px; height: 16px; stroke: var(--dark); fill: none; stroke-width: 2; stroke-linecap: round; }
+/* ── LEFT PANEL ── */
+.input-panel {
+  border-right: 1px solid var(--line);
+  padding: 32px;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+  background: rgba(10, 10, 10, 0.5);
+}
+.panel-title {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.panel-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin: 24px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.field label {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+input, textarea, select {
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  color: var(--light);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  padding: 12px 14px;
+  border-radius: 12px;
+  width: 100%;
+  outline: none;
+  transition: all 0.2s ease;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px var(--focus);
+}
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6' viewBox='0 0 12 6'%3E%3Cpath d='M1 1L6 5L11 1' stroke='%23888888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
 
-/* ── RIGHT: PREVIEW PANEL ── */
-.preview-panel { padding: 32px; overflow-y: auto; max-height: calc(100vh - 65px); display: flex; flex-direction: column; gap: 20px; }
-.preview-header { display: flex; align-items: center; justify-content: space-between; }
-.panel-title-right { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-.panel-title-right::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+/* ── CHECKBOX GROUP ── */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  transition: all 0.2s;
+}
+.check-label:hover {
+  border-color: var(--orange);
+}
+.check-label input {
+  display: none;
+}
+.cb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--muted);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-label input:checked ~ .cb {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+.cb::after {
+  content: '';
+  width: 4px;
+  height: 2px;
+  border-left: 2px solid var(--dark);
+  border-bottom: 2px solid var(--dark);
+  transform: rotate(-45deg) translateY(-1px);
+  display: none;
+}
+.check-label input:checked ~ .cb::after {
+  display: block;
+}
 
-.action-btns { display: flex; gap: 8px; flex-shrink: 0; }
-.btn-action { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--light); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; padding: 7px 14px; border-radius: 3px; cursor: pointer; transition: border-color 0.2s; letter-spacing: 0.04em; }
-.btn-action:hover { border-color: var(--orange-border); }
-.btn-action svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+/* ── BUTTON ── */
+.btn-generate {
+  width: 100%;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--orange);
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 14px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-generate:hover {
+  background: #ff5c12;
+  transform: translateY(-2px);
+}
+
+/* ── RIGHT PANEL ── */
+.preview-panel {
+  padding: 32px;
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(10, 10, 10, 0.3);
+}
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.panel-title-right {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.panel-title-right::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.action-btns {
+  display: flex;
+  gap: 8px;
+}
+.btn-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  color: var(--light);
+  font-size: 0.7rem;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-action:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
 
 /* ── SCHEDA ── */
-.scheda-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-.scheda-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; color: var(--muted); gap: 12px; }
-.scheda-empty svg { width: 40px; height: 40px; stroke: var(--muted); fill: none; stroke-width: 1.2; opacity: 0.4; }
-.scheda-empty p { font-size: 0.85rem; }
+.scheda-wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+}
+.scheda-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--muted);
+  gap: 12px;
+}
+.scheda {
+  display: none;
+}
+.scheda.visible {
+  display: block;
+}
+.scheda-topbar {
+  background: var(--orange);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scheda-brand {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+.scheda-id {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(10, 10, 10, 0.7);
+}
+.scheda-body {
+  padding: 28px;
+}
+.scheda-role {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.scheda-exp {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.scheda-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 20px 0;
+}
+.scheda-section-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 12px;
+}
+.scheda-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.scheda-tag {
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.scheda-list {
+  list-style: none;
+}
+.scheda-list li {
+  font-size: 0.85rem;
+  padding: 6px 0;
+  display: flex;
+  gap: 8px;
+}
+.scheda-list li::before {
+  content: '—';
+  color: var(--orange);
+}
+.scheda-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.scheda-text.muted {
+  color: var(--muted);
+  font-style: italic;
+}
+.scheda-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.scheda-kv .k {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.scheda-kv .v {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.scheda-cta {
+  margin: 24px 28px 28px;
+}
+.scheda-cta a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--orange);
+  color: var(--dark);
+  font-weight: 700;
+  padding: 14px;
+  border-radius: 40px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.scheda-cta a:hover {
+  background: #ff5c12;
+  transform: translateY(-2px);
+}
 
-/* Scheda interna */
-.scheda { display: none; }
-.scheda.visible { display: block; }
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+  .input-panel {
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .preview-panel {
+    max-height: none;
+  }
+  header {
+    padding: 16px 20px;
+  }
+  .logo-mark {
+    height: 60px;
+  }
+}
 
-.scheda-topbar { background: var(--orange); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; }
-.scheda-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.06em; color: var(--dark); }
-.scheda-id { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; color: rgba(15,15,13,0.7); text-transform: uppercase; }
-
-.scheda-body { padding: 28px; display: flex; flex-direction: column; gap: 0; }
-.scheda-role { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.03em; color: var(--light); line-height: 1; margin-bottom: 6px; }
-.scheda-exp { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; letter-spacing: 0.03em; }
-
-.scheda-divider { height: 1px; background: var(--line); margin: 20px 0; }
-
-.scheda-section-title { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; font-weight: 500; }
-
-.scheda-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
-.scheda-tag { background: var(--surface2); border: 1px solid var(--line); color: var(--light); font-size: 0.78rem; padding: 4px 10px; border-radius: 2px; }
-
-.scheda-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.scheda-list li { font-size: 0.87rem; color: var(--light); display: flex; gap: 8px; line-height: 1.5; }
-.scheda-list li::before { content: '—'; color: var(--orange); flex-shrink: 0; }
-
-.scheda-text { font-size: 0.87rem; color: var(--light); line-height: 1.6; }
-.scheda-text.muted { color: var(--muted); font-style: italic; }
-
-.scheda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.scheda-kv { display: flex; flex-direction: column; gap: 3px; }
-.scheda-kv .k { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.scheda-kv .v { font-size: 0.87rem; color: var(--light); font-weight: 400; }
-
-.scheda-cta { margin: 24px 28px 28px; }
-.scheda-cta a { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--orange); color: var(--dark); font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.1em; padding: 14px; border-radius: 3px; text-decoration: none; transition: background 0.2s; }
-.scheda-cta a:hover { background: #ff5c12; }
-.scheda-cta a svg { width: 16px; height: 16px; stroke: var(--dark); fill: none; stroke-width: 2; stroke-linecap: round; }
+@media (max-width: 580px) {
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* print */
 @media print {
-header, .input-panel, .action-btns, .scheda-cta { display: none !important; }
-.workspace { display: block; }
-.preview-panel { max-height: none; overflow: visible; padding: 0; }
-body, .scheda-wrap { background: white; }
-.scheda-topbar { background: #4A90B8 !important; -webkit-print-color-adjust: exact; }
-.scheda-tag { border: 1px solid #ccc; }
+  header, .input-panel, .action-btns, .scheda-cta {
+    display: none !important;
+  }
+  .workspace {
+    display: block;
+  }
+  .preview-panel {
+    max-height: none;
+    overflow: visible;
+    padding: 0;
+  }
+  body, .scheda-wrap {
+    background: white;
+  }
+  .scheda-topbar {
+    background: #5AA9D9 !important;
+    -webkit-print-color-adjust: exact;
+  }
 }
 
-@media (max-width: 900px) {
-.workspace { grid-template-columns: 1fr; }
-.input-panel { max-height: none; border-right: none; border-bottom: 1px solid var(--line); }
-.preview-panel { max-height: none; }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
-
 </head>
 <body>
 
 <header>
   <a class="logo" href="index.html">
-    <span class="logo-main">Inoper</span><span class="logo-accent">ando</span><span class="logo-dot"></span>
+    <img src="logo.png" class="logo-mark" alt="logo">
   </a>
   <div class="header-tag">Tool interno – Scheda candidato</div>
 </header>
 
 <div class="workspace">
 
-  <!-- ── INPUT ── -->
+  <!-- INPUT PANEL -->
   <div class="input-panel">
-
     <div class="panel-title">Dati candidato</div>
 
+    <!-- Anagrafica -->
     <div class="section-label">Anagrafica</div>
     <div class="field-row">
       <div class="field">
@@ -167,6 +515,7 @@ body, .scheda-wrap { background: white; }
       </div>
     </div>
 
+    <!-- Professione -->
     <div class="section-label">Professione</div>
     <div class="field">
       <label>Ultimo ruolo / Ruolo principale</label>
@@ -183,36 +532,92 @@ body, .scheda-wrap { background: white; }
       </div>
     </div>
 
-    <div class="section-label">Competenze tecniche</div>
+    <!-- Figure professionali -->
+    <div class="section-label">Figure professionali</div>
     <div class="checkbox-group">
-      <label class="check-label"><input type="checkbox" value="Disegno tecnico"><span class="cb"></span>Dis. tecnico</label>
-      <label class="check-label"><input type="checkbox" value="Strumenti da banco"><span class="cb"></span>Strumenti banco</label>
-      <label class="check-label"><input type="checkbox" value="CNC"><span class="cb"></span>CNC</label>
-      <label class="check-label"><input type="checkbox" value="Saldatura MIG"><span class="cb"></span>Saldatura MIG</label>
-      <label class="check-label"><input type="checkbox" value="Saldatura TIG"><span class="cb"></span>Saldatura TIG</label>
-      <label class="check-label"><input type="checkbox" value="Elettrico base"><span class="cb"></span>Elettrico base</label>
-      <label class="check-label"><input type="checkbox" value="Elettrico avanzato"><span class="cb"></span>Elettrico avanz.</label>
-      <label class="check-label"><input type="checkbox" value="Montaggio meccanico"><span class="cb"></span>Montaggio mecc.</label>
-      <label class="check-label"><input type="checkbox" value="Collaudo"><span class="cb"></span>Collaudo</label>
-      <label class="check-label"><input type="checkbox" value="Manutenzione"><span class="cb"></span>Manutenzione</label>
+      <label class="check-label"><input type="checkbox" value="Saldatore TIG"><span class="cb"></span>Saldatore TIG</label>
+      <label class="check-label"><input type="checkbox" value="Saldatore Elettrodo (MMA)"><span class="cb"></span>Saldatore Elettrodo (MMA)</label>
+      <label class="check-label"><input type="checkbox" value="Saldatore a Filo (MIG/MAG)"><span class="cb"></span>Saldatore a Filo (MIG/MAG)</label>
+      <label class="check-label"><input type="checkbox" value="Meccanico industriale"><span class="cb"></span>Meccanico industriale</label>
+      <label class="check-label"><input type="checkbox" value="Carpentiere montatore"><span class="cb"></span>Carpentiere montatore</label>
+      <label class="check-label"><input type="checkbox" value="Assemblatore carpenteria"><span class="cb"></span>Assemblatore carpenteria</label>
+      <label class="check-label"><input type="checkbox" value="Montatore meccanico"><span class="cb"></span>Montatore meccanico</label>
+      <label class="check-label"><input type="checkbox" value="Verniciatore industriale"><span class="cb"></span>Verniciatore industriale</label>
+      <label class="check-label"><input type="checkbox" value="Manutentore antincendio"><span class="cb"></span>Manutentore antincendio</label>
+      <label class="check-label"><input type="checkbox" value="Manutentore industriale"><span class="cb"></span>Manutentore industriale</label>
+      <label class="check-label"><input type="checkbox" value="Tubista industriale"><span class="cb"></span>Tubista industriale</label>
+      <label class="check-label"><input type="checkbox" value="Termotecnico"><span class="cb"></span>Termotecnico</label>
+      <label class="check-label"><input type="checkbox" value="Idraulico industriale"><span class="cb"></span>Idraulico industriale</label>
+      <label class="check-label"><input type="checkbox" value="Montatore impianti"><span class="cb"></span>Montatore impianti</label>
+      <label class="check-label"><input type="checkbox" value="Elettricista base"><span class="cb"></span>Elettricista base</label>
+      <label class="check-label"><input type="checkbox" value="Elettricista specializzato"><span class="cb"></span>Elettricista specializzato</label>
+      <label class="check-label"><input type="checkbox" value="Collaudatore"><span class="cb"></span>Collaudatore</label>
+      <label class="check-label"><input type="checkbox" value="Muratore"><span class="cb"></span>Muratore</label>
+      <label class="check-label"><input type="checkbox" value="Piastrellista"><span class="cb"></span>Piastrellista</label>
+      <label class="check-label"><input type="checkbox" value="Intonacatore"><span class="cb"></span>Intonacatore</label>
+      <label class="check-label"><input type="checkbox" value="Cartongessista"><span class="cb"></span>Cartongessista</label>
+      <label class="check-label"><input type="checkbox" value="Sabbiatori / Lucidatori"><span class="cb"></span>Sabbiatori / Lucidatori</label>
+      <label class="check-label"><input type="checkbox" value="Fabbro"><span class="cb"></span>Fabbro</label>
+      <label class="check-label"><input type="checkbox" value="Escavatorista"><span class="cb"></span>Escavatorista</label>
+      <label class="check-label"><input type="checkbox" value="Gruista"><span class="cb"></span>Gruista</label>
+      <label class="check-label"><input type="checkbox" value="Carrellista"><span class="cb"></span>Carrellista</label>
     </div>
-    <div class="field" style="margin-top:8px">
-      <label>Altro (virgola tra le voci)</label>
-      <input type="text" id="f_comp_altro" placeholder="Plasma, controllo qualità…">
+    <div class="field">
+      <label>Altre figure (specificare)</label>
+      <input type="text" id="f_altre_figure" placeholder="Specificare altre figure...">
     </div>
 
+    <!-- Competenze tecniche -->
+    <div class="section-label">Competenze tecniche</div>
+    <div class="checkbox-group">
+      <label class="check-label"><input type="checkbox" value="Lettura disegno tecnico"><span class="cb"></span>Lettura disegno tecnico</label>
+      <label class="check-label"><input type="checkbox" value="Strumenti da banco e attrezzature"><span class="cb"></span>Strumenti da banco e attrezzature</label>
+      <label class="check-label"><input type="checkbox" value="Misure"><span class="cb"></span>Misure</label>
+      <label class="check-label"><input type="checkbox" value="Autonomia"><span class="cb"></span>Autonomia</label>
+    </div>
+    <div class="field">
+      <label>Altre competenze</label>
+      <input type="text" id="f_comp_altro" placeholder="Specificare...">
+    </div>
+
+    <!-- Dove e quando (da aziende) -->
+    <div class="section-label">Dove e quando</div>
+    <div class="field">
+      <label>Dove serve la persona?</label>
+      <input type="text" id="f_luogo" placeholder="Milano, Lombardia...">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Quando serve iniziare?</label>
+        <input type="text" id="f_inizio_richiesta" placeholder="Subito / 01/04/2026">
+      </div>
+      <div class="field">
+        <label>Per quanto tempo?</label>
+        <select id="f_durata">
+          <option value="">Seleziona</option>
+          <option value="Breve periodo (meno di 3 mesi)">Breve periodo (meno di 3 mesi)</option>
+          <option value="Medio periodo (3-12 mesi)">Medio periodo (3-12 mesi)</option>
+          <option value="Lungo periodo (oltre 12 mesi)">Lungo periodo (oltre 12 mesi)</option>
+          <option value="Indeterminato">Indeterminato</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Punti di forza -->
     <div class="section-label">Punti di forza</div>
     <div class="field">
       <label>Cosa sa fare davvero (1 per riga)</label>
       <textarea id="f_forte" rows="4" placeholder="Salda inox fino 10mm&#10;Legge dis. ISO&#10;Lavora in autonomia"></textarea>
     </div>
 
+    <!-- Limiti -->
     <div class="section-label">Limiti</div>
     <div class="field">
       <label>Cosa NON vuole fare</label>
       <input type="text" id="f_limite" placeholder="Lavoro in quota, turni notturni">
     </div>
 
+    <!-- Disponibilità -->
     <div class="section-label">Disponibilità</div>
     <div class="field-row">
       <div class="field">
@@ -235,6 +640,7 @@ body, .scheda-wrap { background: white; }
       </div>
     </div>
 
+    <!-- Aspettative economiche -->
     <div class="section-label">Aspettative economiche</div>
     <div class="field-row">
       <div class="field">
@@ -247,12 +653,14 @@ body, .scheda-wrap { background: white; }
       </div>
     </div>
 
+    <!-- Identità professionale -->
     <div class="section-label">Identità professionale</div>
     <div class="field">
       <label>3 righe libere</label>
       <textarea id="f_identita" rows="3" placeholder="Chi è, come lavora, cosa lo distingue…"></textarea>
     </div>
 
+    <!-- Note interne -->
     <div class="section-label">Note interne</div>
     <div class="field">
       <label>Visibile solo nell'anteprima (opzionale)</label>
@@ -260,73 +668,97 @@ body, .scheda-wrap { background: white; }
     </div>
 
     <button class="btn-generate" onclick="genera()">
-      <svg viewBox="0 0 24 24"><polyline points="13 2 13 9 20 9"/><path d="M20 9L13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/></svg>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="13 2 13 9 20 9"/>
+        <path d="M20 9L13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+      </svg>
       Genera scheda
     </button>
-
   </div>
 
-  <!-- ── PREVIEW ── -->
+  <!-- PREVIEW PANEL -->
   <div class="preview-panel">
-
     <div class="preview-header">
-      <div class="panel-title-right" style="flex:1">Anteprima scheda</div>
+      <div class="panel-title-right">Anteprima scheda</div>
       <div class="action-btns">
         <button class="btn-action" onclick="copia(event)">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
           Copia link
         </button>
         <button class="btn-action" onclick="window.print()">
-          <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
           Stampa
         </button>
       </div>
     </div>
 
     <div class="scheda-wrap">
-
-      <!-- empty state -->
       <div class="scheda-empty" id="emptyState">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="9" y1="21" x2="9" y2="9"/>
+        </svg>
         <p>Compila i campi e premi <strong>Genera scheda</strong></p>
       </div>
 
-      <!-- scheda -->
       <div class="scheda" id="scheda">
-
         <div class="scheda-topbar">
           <div class="scheda-brand">Inoperando</div>
           <div class="scheda-id" id="s_id">CP-001 · 2026</div>
         </div>
-
         <div class="scheda-body">
-
           <div class="scheda-role" id="s_ruolo">—</div>
           <div class="scheda-exp" id="s_exp">— anni di esperienza · —</div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Figure professionali -->
+          <div id="s_figure_block">
+            <div class="scheda-section-title">Figure professionali</div>
+            <div class="scheda-tags" id="s_figure"></div>
+          </div>
+          <div class="scheda-divider"></div>
+
+          <!-- Competenze tecniche -->
           <div id="s_comp_block">
             <div class="scheda-section-title">Competenze tecniche</div>
             <div class="scheda-tags" id="s_comp"></div>
           </div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Dove e quando -->
+          <div id="s_dove_quando_block">
+            <div class="scheda-section-title">Dove e quando</div>
+            <div class="scheda-grid">
+              <div class="scheda-kv"><span class="k">Luogo</span><span class="v" id="s_luogo">—</span></div>
+              <div class="scheda-kv"><span class="k">Inizio richiesto</span><span class="v" id="s_inizio_richiesta">—</span></div>
+              <div class="scheda-kv"><span class="k">Durata</span><span class="v" id="s_durata">—</span></div>
+            </div>
+          </div>
+          <div class="scheda-divider"></div>
+
+          <!-- Cosa sa fare davvero -->
           <div id="s_forte_block">
             <div class="scheda-section-title">Cosa sa fare davvero</div>
             <ul class="scheda-list" id="s_forte"></ul>
           </div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Cosa non vuole fare -->
           <div>
             <div class="scheda-section-title">Cosa non vuole fare</div>
             <p class="scheda-text muted" id="s_limite">—</p>
           </div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Disponibilità -->
           <div>
             <div class="scheda-section-title">Disponibilità</div>
             <div class="scheda-grid">
@@ -336,9 +768,9 @@ body, .scheda-wrap { background: white; }
               <div class="scheda-kv"><span class="k">Trasferte</span><span class="v" id="s_trasferte">—</span></div>
             </div>
           </div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Aspettative economiche -->
           <div>
             <div class="scheda-section-title">Aspettative economiche</div>
             <div class="scheda-grid">
@@ -346,32 +778,33 @@ body, .scheda-wrap { background: white; }
               <div class="scheda-kv"><span class="k">Desiderata</span><span class="v" id="s_desiderata">—</span></div>
             </div>
           </div>
-
           <div class="scheda-divider"></div>
 
+          <!-- Identità professionale -->
           <div id="s_identita_block">
             <div class="scheda-section-title">Identità professionale</div>
             <p class="scheda-text" id="s_identita"></p>
           </div>
 
+          <!-- Note interne -->
           <div id="s_note_block" style="display:none">
             <div class="scheda-divider"></div>
             <div class="scheda-section-title">Note</div>
             <p class="scheda-text muted" id="s_note"></p>
           </div>
-
         </div>
 
         <div class="scheda-cta">
           <a id="s_cta" href="#">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
             Richiedi questo candidato
           </a>
         </div>
-
       </div>
     </div>
-
   </div>
 </div>
 
@@ -384,7 +817,8 @@ function genera() {
   const ruolo = val('f_ruolo') || '—';
   const anni = val('f_anni');
   const settore = val('f_settore');
-  const compAltro = val('f_comp_altro');
+  const altreFigure = val('f_altre_figure');
+  const altreComp = val('f_comp_altro');
   const forte = val('f_forte');
   const limite = val('f_limite') || '—';
   const inizio = val('f_inizio') || '—';
@@ -392,12 +826,19 @@ function genera() {
   const desiderata = val('f_desiderata') || '—';
   const identita = val('f_identita');
   const note = val('f_note');
+  const luogo = val('f_luogo') || '—';
+  const inizioRichiesta = val('f_inizio_richiesta') || '—';
+  const durata = document.getElementById('f_durata')?.value || '—';
 
-  // competenze spuntate
-  const checked = [...document.querySelectorAll('.checkbox-group input:checked')].map(i => i.value);
-  if (compAltro) compAltro.split(',').map(s => s.trim()).filter(Boolean).forEach(c => checked.push(c));
+  // Figure professionali selezionate
+  const figureChecked = [...document.querySelectorAll('.checkbox-group:first-of-type input:checked')].map(i => i.value);
+  if (altreFigure) figureChecked.push(altreFigure);
 
-  // populate
+  // Competenze tecniche selezionate
+  const compChecked = [...document.querySelectorAll('.checkbox-group:last-of-type input:checked')].map(i => i.value);
+  if (altreComp) compChecked.push(altreComp);
+
+  // Populate
   document.getElementById('s_id').textContent = id + ' · ' + anno;
   document.getElementById('s_ruolo').textContent = ruolo;
 
@@ -405,17 +846,37 @@ function genera() {
   if (settore) expStr += ' · ' + settore;
   document.getElementById('s_exp').textContent = expStr;
 
-  // competenze
+  // Figure professionali
+  const figureEl = document.getElementById('s_figure');
+  figureEl.innerHTML = '';
+  if (figureChecked.length) {
+    figureChecked.forEach(c => { const span = document.createElement('span'); span.className = 'scheda-tag'; span.textContent = c; figureEl.appendChild(span); });
+    document.getElementById('s_figure_block').style.display = '';
+  } else {
+    document.getElementById('s_figure_block').style.display = 'none';
+  }
+
+  // Competenze tecniche
   const compEl = document.getElementById('s_comp');
   compEl.innerHTML = '';
-  if (checked.length) {
-    checked.forEach(c => { const span = document.createElement('span'); span.className = 'scheda-tag'; span.textContent = c; compEl.appendChild(span); });
+  if (compChecked.length) {
+    compChecked.forEach(c => { const span = document.createElement('span'); span.className = 'scheda-tag'; span.textContent = c; compEl.appendChild(span); });
     document.getElementById('s_comp_block').style.display = '';
   } else {
     document.getElementById('s_comp_block').style.display = 'none';
   }
 
-  // forte
+  // Dove e quando
+  document.getElementById('s_luogo').textContent = luogo;
+  document.getElementById('s_inizio_richiesta').textContent = inizioRichiesta;
+  document.getElementById('s_durata').textContent = durata;
+  if (luogo !== '—' || inizioRichiesta !== '—' || durata !== '—') {
+    document.getElementById('s_dove_quando_block').style.display = '';
+  } else {
+    document.getElementById('s_dove_quando_block').style.display = 'none';
+  }
+
+  // Cosa sa fare davvero
   const forteEl = document.getElementById('s_forte');
   forteEl.innerHTML = '';
   const righe = forte.split('\n').map(r => r.trim()).filter(Boolean);
@@ -435,7 +896,7 @@ function genera() {
   document.getElementById('s_desiderata').textContent = desiderata;
   document.getElementById('s_identita').textContent = identita || '—';
 
-  // note
+  // Note interne
   const noteBlock = document.getElementById('s_note_block');
   if (note) { document.getElementById('s_note').textContent = note; noteBlock.style.display = ''; }
   else { noteBlock.style.display = 'none'; }
@@ -444,7 +905,7 @@ function genera() {
   const subject = encodeURIComponent('Richiesta colloquio ' + id);
   document.getElementById('s_cta').href = 'mailto:aziende@inoperando.it?subject=' + subject;
 
-  // show
+  // Show
   document.getElementById('emptyState').style.display = 'none';
   const scheda = document.getElementById('scheda');
   scheda.classList.add('visible');
@@ -460,15 +921,11 @@ function copia(event) {
   navigator.clipboard.writeText(link).then(() => {
     const btn = event.target.closest('button');
     const orig = btn.innerHTML;
-    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round"><polyline points="20 6 9 17 4 12"/></svg> Copiato';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiato';
     setTimeout(() => btn.innerHTML = orig, 2000);
   });
 }
 </script>
-
-<style>
-@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-</style>
 
 </body>
 </html>
