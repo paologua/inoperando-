@@ -9,9 +9,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --orange: #4A90B8;
-  --orange-dim: rgba(74,144,184,0.12);
-  --orange-border: rgba(74,144,184,0.3);
+  --orange: #5AA9D9;
+  --orange-dim: rgba(90,169,217,0.12);
+  --orange-border: rgba(90,169,217,0.3);
   --dark: #0F0F0D;
   --mid: #161613;
   --surface: #1C1C18;
@@ -19,7 +19,7 @@
   --light: #F0EBE1;
   --muted: #6B6760;
   --line: rgba(255,255,255,0.07);
-  --focus: rgba(74,144,184,0.35);
+  --focus: rgba(90,169,217,0.35);
 }
 
 html { scroll-behavior: smooth; }
@@ -50,10 +50,19 @@ background: rgba(15,15,13,0.92);
 backdrop-filter: blur(12px);
 border-bottom: 1px solid var(--line);
 }
-.logo { display: flex; align-items: baseline; gap: 0; text-decoration: none; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-text { display: flex; align-items: baseline; }
 .logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--light); letter-spacing: 0.04em; }
 .logo-accent { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--orange); letter-spacing: 0.04em; }
-.logo-dot { display: inline-block; width: 6px; height: 6px; background: var(--orange); border-radius: 50%; margin-left: 3px; margin-bottom: 3px; vertical-align: bottom; }
+.logo-dot { display: inline-block; width: 6px; height: 6px; background: var(--light); border-radius: 50%; margin-left: 3px; margin-bottom: 3px; vertical-align: bottom; }
+.logo-svg {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s ease;
+}
+.logo-svg:hover {
+  transform: scale(1.05);
+}
 
 .header-tag {
 font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
@@ -178,14 +187,27 @@ select option { background: #222220; }
 /* ── CHECKBOX GROUP ── */
 .checkbox-grid {
 display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 8px 20px;
+grid-template-columns: repeat(3, 1fr);
+gap: 8px 12px;
+}
+
+@media (max-width: 680px) {
+  .checkbox-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .check-label {
 display: flex; align-items: center; gap: 10px;
-font-size: 0.87rem; color: var(--light); cursor: pointer;
-padding: 8px 12px; border-radius: 3px;
+font-size: 0.85rem; color: var(--light); cursor: pointer;
+padding: 8px 12px;
+border-radius: 3px;
 border: 1px solid var(--line);
 background: var(--surface2);
 transition: border-color 0.2s, background 0.2s;
@@ -298,17 +320,23 @@ header { padding: 16px 20px; }
 .progress-wrap { padding: 0 20px; }
 .page { padding: 36px 16px 80px; }
 .field-row { grid-template-columns: 1fr; }
-.checkbox-grid { grid-template-columns: 1fr; }
 .section-body { padding: 18px; }
+.logo-svg { width: 28px; height: 28px; }
 }
 </style>
-
 </head>
 <body>
 
 <header>
   <a class="logo" href="index.html">
-    <span class="logo-main">Inoper</span><span class="logo-accent">ando</span><span class="logo-dot"></span>
+    <div class="logo-text">
+      <span class="logo-main">Inoper</span><span class="logo-accent">ando</span><span class="logo-dot"></span>
+    </div>
+    <svg class="logo-svg" width="32" height="32" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M200 400V300C200 244.772 244.772 200 300 200H450L350 400H200Z" fill="#5AA9D9" fill-opacity="0.9"/>
+      <path d="M600 400V500C600 555.228 555.228 600 500 600H350L450 400H600Z" fill="#FFFFFF"/>
+      <path d="M350 400C350 344.772 394.772 300 450 300V400H350ZM450 400C450 455.228 405.228 500 350 500V400H450Z" fill="#2A6A9E"/>
+    </svg>
   </a>
   <div class="header-tag">Candidatura</div>
 </header>
@@ -389,36 +417,94 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 03 COMPETENZE TECNICHE -->
-    <div class="section" style="animation-delay:0.29s">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <span class="section-title">Competenze tecniche</span>
-      </div>
-      <div class="section-body">
-        <div class="checkbox-grid">
-          <label class="check-label"><input type="checkbox" name="competenze" value="Disegno tecnico"><span class="check-box"></span>Lettura disegno tecnico</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Strumenti da banco"><span class="check-box"></span>Strumenti da banco</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="CNC"><span class="check-box"></span>CNC</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Saldatura MIG"><span class="check-box"></span>Saldatura MIG</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Saldatura TIG"><span class="check-box"></span>Saldatura TIG</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Elettrico base"><span class="check-box"></span>Elettrico base</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Elettrico avanzato"><span class="check-box"></span>Elettrico avanzato</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Montaggio meccanico"><span class="check-box"></span>Montaggio meccanico</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Collaudo"><span class="check-box"></span>Collaudo</label>
-          <label class="check-label"><input type="checkbox" name="competenze" value="Manutenzione"><span class="check-box"></span>Manutenzione</label>
-        </div>
-        <div class="field">
-          <label for="competenze_altro">Altro</label>
-          <input type="text" id="competenze_altro" name="competenze_altro" placeholder="Specificare...">
-        </div>
-      </div>
-    </div>
+    <!-- 03 FIGURE PROFESSIONALI -->
+<div class="section" style="animation-delay:0.29s">
+<div class="section-header">
+<span class="section-num">03</span>
+<span class="section-title">Figure professionali</span>
+</div>
+<div class="section-body">
+<div class="checkbox-grid">
 
-    <!-- 04 ESPERIENZA -->
-    <div class="section" style="animation-delay:0.36s">
+<label class="check-label"><input type="checkbox" name="figure" value="Saldatore TIG"><span class="check-box"></span>Saldatore TIG</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Saldatore Elettrodo (MMA)"><span class="check-box"></span>Saldatore Elettrodo (MMA)</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Saldatore a Filo (MIG/MAG)"><span class="check-box"></span>Saldatore a Filo (MIG/MAG)</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Meccanico industriale"><span class="check-box"></span>Meccanico industriale</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Carpentiere montatore"><span class="check-box"></span>Carpentiere montatore</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Assemblatore carpenteria"><span class="check-box"></span>Assemblatore carpenteria</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Montatore meccanico"><span class="check-box"></span>Montatore meccanico</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Verniciatore industriale"><span class="check-box"></span>Verniciatore industriale</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Manutentore antincendio"><span class="check-box"></span>Manutentore antincendio</label>
+
+<!-- AGGIUNTA RICHIESTA -->
+<label class="check-label"><input type="checkbox" name="figure" value="Manutentore industriale"><span class="check-box"></span>Manutentore industriale</label>
+<!-- FINE AGGIUNTA -->
+
+<label class="check-label"><input type="checkbox" name="figure" value="Tubista industriale"><span class="check-box"></span>Tubista industriale</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Termotecnico"><span class="check-box"></span>Termotecnico</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Idraulico industriale"><span class="check-box"></span>Idraulico industriale</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Montatore impianti"><span class="check-box"></span>Montatore impianti</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Elettricista base"><span class="check-box"></span>Elettricista base</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Elettricista specializzato"><span class="check-box"></span>Elettricista specializzato</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Collaudatore"><span class="check-box"></span>Collaudatore</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Muratore"><span class="check-box"></span>Muratore</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Piastrellista"><span class="check-box"></span>Piastrellista</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Intonacatore"><span class="check-box"></span>Intonacatore</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Cartongessista"><span class="check-box"></span>Cartongessista</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Sabbiatori / Lucidatori"><span class="check-box"></span>Sabbiatori / Lucidatori</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Fabbro"><span class="check-box"></span>Fabbro</label>
+
+<label class="check-label"><input type="checkbox" name="figure" value="Escavatorista"><span class="check-box"></span>Escavatorista</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Gruista"><span class="check-box"></span>Gruista</label>
+<label class="check-label"><input type="checkbox" name="figure" value="Carrellista"><span class="check-box"></span>Carrellista</label>
+
+</div>
+<div class="field">
+<label for="altre_figure">Altre figure (specificare)</label>
+<input type="text" id="altre_figure" name="altre_figure" placeholder="Specificare altre figure professionali ... ">
+</div>
+</div>
+</div>
+
+
+    <!-- 04 COMPETENZE TECNICHE -->
+<div class="section" style="animation-delay:0.36s">
+<div class="section-header">
+<span class="section-num">04</span>
+<span class="section-title">Competenze tecniche</span>
+</div>
+<div class="section-body">
+<div class="checkbox-grid">
+
+<label class="check-label"><input type="checkbox" name="competenze" value="Lettura disegno tecnico"><span class="check-box"></span>Lettura disegno tecnico</label>
+
+<label class="check-label"><input type="checkbox" name="competenze" value="Strumenti da banco e attrezzature"><span class="check-box"></span>Strumenti da banco e attrezzature</label>
+
+<label class="check-label"><input type="checkbox" name="competenze" value="Misure"><span class="check-box"></span>Misure</label>
+
+<label class="check-label"><input type="checkbox" name="competenze" value="Autonomia"><span class="check-box"></span>Autonomia</label>
+
+</div>
+
+<div class="field">
+<label for="competenze_altro">Altro</label>
+<input type="text" id="competenze_altro" name="competenze_altro" placeholder="Specificare ... ">
+</div>
+</div>
+</div>
+
+    <!-- 05 ESPERIENZA -->
+    <div class="section" style="animation-delay:0.43s">
       <div class="section-header">
-        <span class="section-num">04</span>
+        <span class="section-num">05</span>
         <span class="section-title">Esperienza</span>
       </div>
       <div class="section-body">
@@ -443,10 +529,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 05 COSA SAI FARE -->
-    <div class="section" style="animation-delay:0.43s">
+    <!-- 06 COSA SAI FARE -->
+    <div class="section" style="animation-delay:0.5s">
       <div class="section-header">
-        <span class="section-num">05</span>
+        <span class="section-num">06</span>
         <span class="section-title">Cosa sai fare davvero</span>
       </div>
       <div class="section-body">
@@ -457,10 +543,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 06 COSA NON VUOI FARE -->
-    <div class="section" style="animation-delay:0.5s">
+    <!-- 07 COSA NON VUOI FARE -->
+    <div class="section" style="animation-delay:0.57s">
       <div class="section-header">
-        <span class="section-num">06</span>
+        <span class="section-num">07</span>
         <span class="section-title">Cosa NON vuoi fare</span>
       </div>
       <div class="section-body">
@@ -471,10 +557,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 07 DISPONIBILITÀ -->
-    <div class="section" style="animation-delay:0.57s">
+    <!-- 08 DISPONIBILITÀ -->
+    <div class="section" style="animation-delay:0.64s">
       <div class="section-header">
-        <span class="section-num">07</span>
+        <span class="section-num">08</span>
         <span class="section-title">Disponibilità</span>
       </div>
       <div class="section-body">
@@ -519,10 +605,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 08 ASPETTATIVE ECONOMICHE -->
-    <div class="section" style="animation-delay:0.64s">
+    <!-- 09 ASPETTATIVE ECONOMICHE -->
+    <div class="section" style="animation-delay:0.71s">
       <div class="section-header">
-        <span class="section-num">08</span>
+        <span class="section-num">09</span>
         <span class="section-title">Aspettative economiche</span>
       </div>
       <div class="section-body">
@@ -539,10 +625,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 09 IDENTITÀ PROFESSIONALE -->
-    <div class="section" style="animation-delay:0.71s">
+    <!-- 10 IDENTITÀ PROFESSIONALE -->
+    <div class="section" style="animation-delay:0.78s">
       <div class="section-header">
-        <span class="section-num">09</span>
+        <span class="section-num">10</span>
         <span class="section-title">Identità professionale</span>
       </div>
       <div class="section-body">
@@ -553,10 +639,10 @@ header { padding: 16px 20px; }
       </div>
     </div>
 
-    <!-- 10 CV + CONSENSO -->
-    <div class="section" style="animation-delay:0.78s">
+    <!-- 11 CV + CONSENSO -->
+    <div class="section" style="animation-delay:0.85s">
       <div class="section-header">
-        <span class="section-num">10</span>
+        <span class="section-num">11</span>
         <span class="section-title">CV e consenso</span>
       </div>
       <div class="section-body">
