@@ -35,12 +35,18 @@ pointer-events: none; z-index: 0;
 header {
 position: relative; z-index: 10;
 display: flex; align-items: center; justify-content: space-between;
-padding: 28px 48px; border-bottom: 1px solid var(--line);
+padding: 28px 48px;
+border-bottom: 1px solid var(--line);
 }
-.logo { display: flex; align-items: baseline; text-decoration: none; }
-.logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; color: var(--light); line-height: 1; }
-.logo-accent { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.04em; color: var(--orange); line-height: 1; }
-.logo-dot { display: inline-block; width: 7px; height: 7px; background: var(--light); border-radius: 50%; margin-left: 4px; margin-bottom: 4px; vertical-align: bottom; }
+.logo {
+  display: block;
+  text-decoration: none;
+}
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
 nav { display: flex; gap: 32px; align-items: center; }
 nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--light); }
@@ -165,15 +171,15 @@ nav { display: none; }
 .cta-grid { grid-template-columns: 1fr; }
 .how { padding: 64px 24px; }
 footer { padding: 20px 24px; }
+.logo-img { height: 32px; }
 }
 </style>
-
 </head>
 <body>
 
 <header>
   <a class="logo" href="#">
-    <span class="logo-main">Inoper</span><span class="logo-accent">ando</span><span class="logo-dot"></span>
+    <img src="logo.png" class="logo-img" alt="Inoperando">
   </a>
   <nav>
     <a href="#come-funziona">Come funziona</a>
