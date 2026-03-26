@@ -33,19 +33,32 @@ pointer-events: none; z-index: 0;
 
 /* ── HEADER ── */
 header {
-position: relative; z-index: 10;
+position: sticky; top: 0; z-index: 100;
 display: flex; align-items: center; justify-content: space-between;
-padding: 28px 48px;
+padding: 20px 48px;
+background: rgba(15,15,13,0.92);
+backdrop-filter: blur(12px);
 border-bottom: 1px solid var(--line);
 }
 .logo {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   text-decoration: none;
 }
-.logo-img {
-  height: 40px;
-  width: auto;
-  display: block;
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.logo-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--light);
 }
 nav { display: flex; gap: 32px; align-items: center; }
 nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
@@ -165,21 +178,23 @@ footer p { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 600px) {
-header { padding: 20px 24px; }
+header { padding: 16px 20px; }
 nav { display: none; }
 .hero { padding: 40px 24px 60px; }
 .cta-grid { grid-template-columns: 1fr; }
 .how { padding: 64px 24px; }
 footer { padding: 20px 24px; }
-.logo-img { height: 32px; }
+.logo-mark { width: 28px; height: 28px; }
+.logo-wordmark { font-size: 1.4rem; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#">
-    <img src="logo.png" class="logo-img" alt="Inoperando">
+  <a class="logo" href="index.html">
+    <img src="logo.png" class="logo-mark" alt="logo">
+    <span class="logo-wordmark">inoperando</span>
   </a>
   <nav>
     <a href="#come-funziona">Come funziona</a>
