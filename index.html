@@ -57,16 +57,18 @@ border-bottom: 1px solid var(--line);
   flex-shrink: 0;
   object-fit: contain;
 }
-nav { display: flex; gap: 32px; align-items: center; }
-nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+nav { display: flex; gap: 16px; align-items: center; }
+nav a { color: var(--muted); text-decoration: none; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
 nav a:hover { color: var(--light); }
 
 /* ── HERO ── */
 .hero {
 position: relative; z-index: 10;
 min-height: calc(100vh - 89px);
-display: flex; flex-direction: column; align-items: center; justify-content: center;
-padding: 40px 48px 80px;
+display: flex; flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 60px 48px 80px;
 text-align: center;
 }
 .tag {
@@ -76,7 +78,7 @@ font-size: 0.75rem;
 font-weight: 500;
 letter-spacing: 0.12em;
 text-transform: uppercase;
-margin-bottom: 24px;
+margin-bottom: 20px;
 opacity: 0;
 animation: fadeUp 0.6s 0.2s forwards;
 }
@@ -87,30 +89,17 @@ line-height: 0.95; letter-spacing: 0.02em; color: var(--light); max-width: 860px
 margin: 0 auto;
 opacity: 0;
 animation: fadeUp 0.7s 0.35s forwards;
+margin-bottom: 80px;
 }
 h1 em { font-style: normal; color: var(--orange); }
 h1 .blue { font-style: normal; color: var(--orange); }
 
-.sub {
-margin-top: 24px;
-font-size: 1rem;
-font-weight: 400;
-color: var(--muted);
-letter-spacing: 0.01em;
-max-width: 500px;
-margin-left: auto;
-margin-right: auto;
-line-height: 1.65;
-opacity: 0;
-animation: fadeUp 0.7s 0.45s forwards;
-}
-
 /* ── CTA CARDS ── */
 .cta-grid {
-display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
 width: 100%; max-width: 680px;
-margin-top: 32px;
-opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+margin-top: 0;
+opacity: 0; animation: fadeUp 0.7s 0.45s forwards;
 }
 .cta-card {
 position: relative; display: flex; flex-direction: column; align-items: flex-start;
@@ -133,14 +122,28 @@ opacity: 0; transition: opacity 0.3s;
 .card-arrow { align-self: flex-end; margin-top: 24px; font-size: 1.1rem; color: var(--muted); transition: transform 0.25s, color 0.25s; }
 
 .agency-msg {
-  margin-top: 32px;
+  margin-top: 80px;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--orange);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   opacity: 0;
-  animation: fadeUp 0.7s 0.65s forwards;
+  animation: fadeUp 0.7s 0.55s forwards;
+}
+
+.sub {
+margin-top: 20px;
+font-size: 1rem;
+font-weight: 400;
+color: var(--muted);
+letter-spacing: 0.01em;
+max-width: 500px;
+margin-left: auto;
+margin-right: auto;
+line-height: 1.65;
+opacity: 0;
+animation: fadeUp 0.7s 0.65s forwards;
 }
 
 /* ── PERCHÉ SEZIONE ── */
@@ -148,6 +151,7 @@ opacity: 0; transition: opacity 0.3s;
 position: relative; z-index: 10;
 padding: 80px 48px;
 border-top: 1px solid var(--line);
+border-bottom: 1px solid var(--line);
 background: var(--dark);
 }
 .perche-label {
@@ -156,44 +160,41 @@ color: var(--orange); margin-bottom: 48px;
 display: flex; align-items: center; justify-content: center; gap: 12px;
 }
 .perche-label::before, .perche-label::after { content: ''; width: 40px; height: 1px; background: var(--orange); opacity: 0.4; }
-.perche-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 32px;
-max-width: 1000px;
+
+.perche-steps {
+display: flex; flex-direction: column; gap: 0;
+width: 100%; max-width: 780px;
 margin: 0 auto;
 }
-.perche-card {
-text-align: left;
-padding: 28px;
-border: 1px solid var(--line);
-border-radius: 8px;
-background: var(--mid);
-transition: transform 0.3s, border-color 0.3s;
+.perche-step {
+display: flex;
+gap: 28px;
+align-items: flex-start;
+padding: 24px 0;
+border-bottom: 1px solid var(--line);
+opacity: 0;
+transform: translateY(16px);
+transition: opacity 0.5s, transform 0.5s;
 }
-.perche-card:hover {
-border-color: rgba(90,169,217,0.45);
-transform: translateY(-4px);
-}
-.perche-card h3 {
+.perche-step:last-child { border-bottom: none; }
+.perche-step.visible { opacity: 1; transform: translateY(0); }
+
+.perche-step-num {
 font-family: 'Bebas Neue', sans-serif;
-font-size: 1.3rem;
-color: var(--orange);
-margin-bottom: 16px;
-}
-.perche-card p {
-font-size: 0.9rem;
-color: var(--muted);
-line-height: 1.5;
-margin-bottom: 12px;
-}
-.perche-card .highlight {
+font-size: 2rem;
+line-height: 1;
+letter-spacing: 0.04em;
 color: var(--light);
-font-weight: 600;
+opacity: 0.8;
+min-width: 48px;
+padding-top: 2px;
 }
-.perche-card:last-child {
-  grid-column: span 2;
-  text-align: center;
+.perche-step-text {
+font-size: 0.95rem;
+font-weight: 400;
+color: var(--orange);
+line-height: 1.6;
+padding-top: 6px;
 }
 
 /* ── COME FUNZIONA ── */
@@ -233,6 +234,44 @@ padding-top: 2px;
 .step-text {
 font-size: 0.95rem; font-weight: 400; color: var(--light);
 line-height: 1.6; padding-top: 6px;
+}
+
+/* ── CONTATTI SEZIONE ── */
+.contatti {
+position: relative; z-index: 10;
+padding: 80px 48px;
+border-top: 1px solid var(--line);
+border-bottom: 1px solid var(--line);
+background: var(--dark);
+text-align: center;
+}
+.contatti-label {
+font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+color: var(--orange); margin-bottom: 48px;
+display: flex; align-items: center; justify-content: center; gap: 12px;
+}
+.contatti-label::before, .contatti-label::after { content: ''; width: 40px; height: 1px; background: var(--orange); opacity: 0.4; }
+.contatti-content {
+max-width: 500px;
+margin: 0 auto;
+}
+.contatti-item {
+margin: 24px 0;
+font-size: 1.2rem;
+}
+.contatti-item a {
+color: var(--light);
+text-decoration: none;
+transition: color 0.2s;
+}
+.contatti-item a:hover {
+color: var(--orange);
+}
+.contatti-item small {
+display: block;
+font-size: 0.8rem;
+color: var(--muted);
+margin-top: 4px;
 }
 
 /* ── FOOTER ── */
@@ -296,21 +335,23 @@ footer a:hover { color: var(--orange); }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
 
-@media (max-width: 900px) {
-  .perche-grid { grid-template-columns: 1fr; }
-  .perche-card:last-child { grid-column: span 1; }
-}
 @media (max-width: 600px) {
 header { padding: 16px 20px; }
 .logo { margin-left: 0; }
 .logo-mark { height: 45px; }
-nav { display: none; }
+nav { gap: 12px; }
+nav a { font-size: 0.6rem; }
 .hero { padding: 40px 20px 60px; }
-.cta-grid { grid-template-columns: 1fr; }
+h1 { margin-bottom: 50px; }
+.cta-grid { grid-template-columns: 1fr; gap: 20px; }
+.agency-msg { margin-top: 50px; }
 .perche { padding: 60px 24px; }
 .how { padding: 64px 24px; }
+.contatti { padding: 60px 24px; }
 footer { padding: 20px 24px; }
 .footer-content { flex-direction: column; text-align: center; }
+.perche-step { gap: 16px; }
+.perche-step-num { font-size: 1.5rem; min-width: 36px; }
 }
 </style>
 </head>
@@ -321,8 +362,9 @@ footer { padding: 20px 24px; }
     <img src="logo.png" class="logo-mark" alt="logo">
   </a>
   <nav>
+    <a href="#perche">Perché</a>
     <a href="#come-funziona">Come funziona</a>
-    <a href="#">Contatti</a>
+    <a href="#contatti">Contatti</a>
   </nav>
 </header>
 
@@ -331,8 +373,6 @@ footer { padding: 20px 24px; }
   <div class="tag">operai in tutta Italia</div>
 
   <h1>Selezioniamo<br>personale <em>e</em> <span class="blue">aziende</span></h1>
-
-  <p class="sub">metodo serio, veloce e responsabile</p>
 
   <div class="cta-grid">
     <a class="cta-card" href="inoperando-form.html">
@@ -349,12 +389,9 @@ footer { padding: 20px 24px; }
 
     <a class="cta-card" href="inoperando-aziende.html">
       <div class="card-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 10.5V9a6 6 0 0 1 12 0v1.5"/>
-          <path d="M18 10.5h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2"/>
-          <path d="M6 10.5H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2"/>
-          <path d="M8 17.5h8"/>
-          <path d="M12 14.5v3"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1-2 0l-.43.25a2 2 0 0 1-1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+          <circle cx="12" cy="12" r="3"/>
         </svg>
       </div>
       <div class="card-title">Cerchi operai?</div>
@@ -365,28 +402,19 @@ footer { padding: 20px 24px; }
 
   <div class="agency-msg">non siamo un portale, non siamo un'agenzia</div>
 
+  <p class="sub">metodo serio, veloce e responsabile</p>
+
 </main>
 
 <!-- PERCHÉ SEZIONE -->
-<section class="perche">
+<section class="perche" id="perche">
   <div class="perche-label">Perché</div>
-  <div class="perche-grid">
-    <div class="perche-card">
-      <h3>Tutti cercano lavoro</h3>
-      <p>Le aziende non trovano dipendenti. I portali sono una discarica di annunci: candidati fanno 1000 profili, 1000 upload, 1000 click. <span class="highlight">Nessun ritorno.</span></p>
-    </div>
-    <div class="perche-card">
-      <h3>Le agenzie vivono di CV</h3>
-      <p>Non di assunzioni. Nessuna competenza sul settore. Spediscono curriculum senza criterio.</p>
-    </div>
-    <div class="perche-card">
-      <h3>Aziende e lavoratori spesso mentono</h3>
-      <p>Per questo nessuno si fida più. Promesse non mantenute, profili gonfiati, esigenze nascoste.</p>
-    </div>
-    <div class="perche-card">
-      <h3>Noi verifichiamo, filtriamo, confermiamo</h3>
-      <p>Il rischio e le responsabilità sono <span class="highlight">tutti nostri</span>. Presentiamo solo profili coerenti e verificati. Se non assumi, non paghi.</p>
-    </div>
+  <div class="perche-steps">
+    <div class="perche-step"><span class="perche-step-num">01</span><span class="perche-step-text">Tutti cercano lavoro e le aziende non trovano personale</span></div>
+    <div class="perche-step"><span class="perche-step-num">02</span><span class="perche-step-text">I portali sono una discarica di annunci, candidati fanno 1000 profili, 1000 upload, 1000 click. Nessun ritorno</span></div>
+    <div class="perche-step"><span class="perche-step-num">03</span><span class="perche-step-text">Le agenzie vivono di CV, non di assunzioni. Nessuna competenza</span></div>
+    <div class="perche-step"><span class="perche-step-num">04</span><span class="perche-step-text">Aziende e lavoratori spesso mentono e per questo nessuno si fida più</span></div>
+    <div class="perche-step"><span class="perche-step-num">05</span><span class="perche-step-text">Noi verifichiamo, filtriamo, confermiamo. Il rischio e le responsabilità sono tutti nostri</span></div>
   </div>
 </section>
 
@@ -400,6 +428,21 @@ footer { padding: 20px 24px; }
     <div class="step"><span class="step-num">05</span><span class="step-text">L'azienda richiede il colloquio</span></div>
     <div class="step"><span class="step-num">06</span><span class="step-text">Registriamo l'esito</span></div>
     <div class="step"><span class="step-num">07</span><span class="step-text">Paghi solo se assumi</span></div>
+  </div>
+</section>
+
+<!-- CONTATTI SEZIONE -->
+<section class="contatti" id="contatti">
+  <div class="contatti-label">Contatti</div>
+  <div class="contatti-content">
+    <div class="contatti-item">
+      <a href="mailto:info@inoperando.it">info@inoperando.it</a>
+      <small>Email</small>
+    </div>
+    <div class="contatti-item">
+      <a href="https://wa.me/3898422871">389 842 2871</a>
+      <small>WhatsApp</small>
+    </div>
   </div>
 </section>
 
@@ -425,7 +468,7 @@ const obs = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.15 });
-document.querySelectorAll('.step').forEach(s => obs.observe(s));
+document.querySelectorAll('.step, .perche-step').forEach(s => obs.observe(s));
 </script>
 
 </body>
